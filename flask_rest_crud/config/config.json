@@ -1,0 +1,8 @@
+{
+  "db": {
+    "uri" : "mongodb://localhost:27017/",
+    "name" :"flask_crud"
+  },
+  "port": 5001,
+  "debug": true
+}
