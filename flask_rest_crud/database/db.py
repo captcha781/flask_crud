@@ -4,11 +4,13 @@ from bson import ObjectId
 from flask_rest_crud.config.config import config
 import json
 
+client = MongoClient(config["db"]["uri"])
+db = client[config['db']['name']]
 
 class Database:
     def __init__(self):
-        self.client = MongoClient(config["db"]["uri"])
-        self.db = self.client[config['db']['name']]
+        self.client = client
+        self.db = db
 
     def insert_one(self, collection: str, data: any) -> object:
         insert_data = self.db[collection].insert_one(data)
@@ -62,3 +64,45 @@ class Database:
             return {"status": True, "message": "Deleted successfully"}
         elif delete_data.deleted_count == 0:
             return {"status": False, "message": "No matching data deleted"}
+
+
+class User:
+    def __init__(self):
+        self.client = client
+        self.db = db
+
+    def find_user_by_id(self, collection, obj_id):
+        found_data = self.db[collection].find_one({"_id": ObjectId(obj_id)})
+
+        if found_data is None:
+            return {"status": False, "user": None}
+        else:
+            found_data["_id"] = str(found_data["_id"])
+            return {"status": True, "user": found_data}
+
+    def find_existing_email_username(self, collection, email, username):
+        found_data_email = self.db[collection].find_one({"email": email})
+        found_data_username = self.db[collection].find_one({"username": username})
+
+        print(found_data_username)
+        print(found_data_email)
+        if found_data_email is None and found_data_username:
+            return "username"
+        elif found_data_email and found_data_username is None:
+            return "email"
+        elif found_data_email is not None and found_data_username is not None:
+            return "email"
+        elif found_data_email is None and found_data_username is None:
+            return False
+
+    def find_user_by_email(self, collection, email):
+        found_data = self.db[collection].find_one({'email':email})
+
+        if not found_data:
+            return {'status': False, 'user': None}
+        else:
+            return {'status': True, 'user': found_data}
+
+    def insert_user(self, collection, data):
+        insert_data = self.db[collection].insert_one(data)
+        return insert_data

@@ -1,3 +1,5 @@
 Flask
 pymongo
 flask_cors
+PyJWT
+python-dotenv
