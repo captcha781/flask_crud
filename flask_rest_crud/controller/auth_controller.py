@@ -63,4 +63,4 @@ def signin():
 
 
     except:
-        return jsonify({'success': False, 'message': 'Something went wrong'})
+        return jsonify({'success': False, 'message': 'Something went wrong'}), 500
