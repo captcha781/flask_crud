@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from config.config import config
-from flask_rest_crud.routes.routes import bp as routes_app
-from flask_rest_crud.routes.auth_routes import abp as auth_routes_app
+from routes.routes import bp as routes_app
+from routes.auth_routes import abp as auth_routes_app
 
 app = Flask(__name__)
 CORS(app)

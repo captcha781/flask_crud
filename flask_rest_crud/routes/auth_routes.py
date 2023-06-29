@@ -1,6 +1,6 @@
 from flask import jsonify, Blueprint
-from flask_rest_crud.controller import auth_controller
-from flask_rest_crud.middlewares.auth_middleware import token_validation
+from controller import auth_controller
+from middlewares.auth_middleware import token_validation
 
 abp = Blueprint('routes', __name__)
 

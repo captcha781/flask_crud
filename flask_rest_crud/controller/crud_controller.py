@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from flask_rest_crud.database.db import Database
+from database.db import Database
 
 db = Database()
 

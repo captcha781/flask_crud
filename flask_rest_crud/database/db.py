@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from datetime import datetime
 from bson import ObjectId
-from flask_rest_crud.config.config import config
+from config.config import config
 import json
 
 client = MongoClient(config["db"]["uri"])

@@ -2,7 +2,7 @@ import jwt
 from functools import wraps
 from flask import request, jsonify
 import os
-from flask_rest_crud.database.db import User
+from database.db import User
 
 db = User()
 
